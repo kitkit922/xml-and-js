@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE menuinfo[
+    <!ELEMENT menuinfo (title, summary, effective_Date, menu+)>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT summary (#PCDATA)>
+    <!ELEMENT effective_Date (#PCDATA)>
+    <!ELEMENT menu (category, menuItem+)>
+    <!ELEMENT category (#PCDATA)>
+    <!ELEMENT menuItem (itemName, description, price, indicator*)>
+    <!ELEMENT itemName (originalName, oldName)>
+    <!ELEMENT description (#PCDATA)>
+    <!ELEMENT price (#PCDATA)>
+    <!ELEMENT indicator (#PCDATA)>
+]>
 <menuInfo>
   <title>Chester's Breakfast Menu</title>
   <summary>
@@ -80,4 +93,17 @@
     </menuItem>
   </menu>
 </menuInfo>
+
+
+1. There is an error in line 11. Elements should not contain any blank spaces. 
+Correction:
+  <effective_Date>03/12/2016</effective_Date>
+
+2. The use of CDATA block in this document is to treat as character data only.
+In this case, the CDATA block is used for describing the breakfast sets and not for data processing
+
+3. comment line to the end of file which contains you name and student id.
 <!-- Tsz Kit Cheung N01555831 -->
+
+4. Identify prolog, document body, and epilog in the document. Are there any processing instructions?
+prolog: <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
