@@ -116,18 +116,20 @@ Document body are processing instructions
 All the comments(epilog) is not processed
 
 5. Add inline DTD for this document.
-<!DOCTYPE menuinfo[
-    <!ELEMENT menuinfo (title, summary, effective_Date, menu+)>
+<!DOCTYPE menuInfo[
+    <!ELEMENT menuInfo (title, summary, effective_Date, menu+)>
     <!ELEMENT title (#PCDATA)>
     <!ELEMENT summary (#PCDATA)>
     <!ELEMENT effective_Date (#PCDATA)>
     <!ELEMENT menu (category, menuItem+)>
     <!ELEMENT category (#PCDATA)>
     <!ELEMENT menuItem (itemName, description, price, indicator*)>
-    <!ELEMENT itemName (originalName, oldName)>
+    <!ELEMENT itemName (originalName, *oldName)>
     <!ELEMENT description (#PCDATA)>
     <!ELEMENT price (#PCDATA)>
     <!ELEMENT indicator (#PCDATA)>
+    <!ELEMENT originalName (#PCDATA)>
+    <!ELEMENT oldName (#PCDATA)>
 ]>
 
 6. Verify that file is well-formed and valid.

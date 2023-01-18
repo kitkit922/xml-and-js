@@ -1,0 +1,14 @@
+originalName{
+    font-size: 10px;
+    font-style: italic;
+}
+
+category{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 600;
+    
+    white-space: pre;
+}
+
