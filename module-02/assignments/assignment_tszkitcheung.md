@@ -93,7 +93,7 @@
     </menuItem>
   </menu>
 </menuInfo>
-
+<!-- Tsz Kit Cheung N01555831 -->
 
 1. There is an error in line 11. Elements should not contain any blank spaces. 
 Correction:
@@ -107,3 +107,33 @@ In this case, the CDATA block is used for describing the breakfast sets and not 
 
 4. Identify prolog, document body, and epilog in the document. Are there any processing instructions?
 prolog: <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+document body: all other parts
+epilog:<!-- Tsz Kit Cheung N01555831 -->
+
+Prolog contains meta information about the document rather than document content.
+Prolog is optional, so it is not processed
+Document body are processing instructions
+All the comments(epilog) is not processed
+
+5. Add inline DTD for this document.
+<!DOCTYPE menuinfo[
+    <!ELEMENT menuinfo (title, summary, effective_Date, menu+)>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT summary (#PCDATA)>
+    <!ELEMENT effective_Date (#PCDATA)>
+    <!ELEMENT menu (category, menuItem+)>
+    <!ELEMENT category (#PCDATA)>
+    <!ELEMENT menuItem (itemName, description, price, indicator*)>
+    <!ELEMENT itemName (originalName, oldName)>
+    <!ELEMENT description (#PCDATA)>
+    <!ELEMENT price (#PCDATA)>
+    <!ELEMENT indicator (#PCDATA)>
+]>
+
+6. Verify that file is well-formed and valid.
+
+
+7. Create `style.css` file and link it to the file. Add the following styles to the .css:
+- Change font-size of `originalName`
+- Display each `category` on the new line
+- Add any other css-rule

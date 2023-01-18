@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE menuinfo[
+    <!ELEMENT menuinfo (title, summary, effective_Date, menu+)>
+    <!ELEMENT title (#PCDATA)>
+    <!ELEMENT summary (#PCDATA)>
+    <!ELEMENT effective_Date (#PCDATA)>
+    <!ELEMENT menu (category, menuItem+)>
+    <!ELEMENT category (#PCDATA)>
+    <!ELEMENT menuItem (itemName, description, price, indicator*)>
+    <!ELEMENT itemName (originalName, oldName)>
+    <!ELEMENT description (#PCDATA)>
+    <!ELEMENT price (#PCDATA)>
+    <!ELEMENT indicator (#PCDATA)>
+]>
 <menuInfo>
   <title>Chester's Breakfast Menu</title>
   <summary>
