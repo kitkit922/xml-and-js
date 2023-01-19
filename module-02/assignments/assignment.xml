@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<?xm1-sty1esheet type="text/css" href="style.css"?>
+<?xml-stylesheet type="text/css" href="style.css"?>
 <!DOCTYPE menuInfo[
     <!ELEMENT menuInfo (title, summary, effective_Date, menu+)>
     <!ELEMENT title (#PCDATA)>

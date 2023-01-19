@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<!DOCTYPE menuinfo[
-    <!ELEMENT menuinfo (title, summary, effective_Date, menu+)>
+<?xml-stylesheet type="text/css" href="style.css"?>
+<!DOCTYPE menuInfo[
+    <!ELEMENT menuInfo (title, summary, effective_Date, menu+)>
     <!ELEMENT title (#PCDATA)>
     <!ELEMENT summary (#PCDATA)>
     <!ELEMENT effective_Date (#PCDATA)>
     <!ELEMENT menu (category, menuItem+)>
     <!ELEMENT category (#PCDATA)>
     <!ELEMENT menuItem (itemName, description, price, indicator*)>
-    <!ELEMENT itemName (originalName, oldName)>
+    <!ELEMENT itemName (originalName, oldName*)>
     <!ELEMENT description (#PCDATA)>
     <!ELEMENT price (#PCDATA)>
     <!ELEMENT indicator (#PCDATA)>
+    <!ELEMENT originalName (#PCDATA)>
+    <!ELEMENT oldName (#PCDATA)>
 ]>
 <menuInfo>
   <title>Chester's Breakfast Menu</title>
@@ -41,7 +44,7 @@
     </menuItem>
     <menuItem>
       <itemName>
-        <originalName> Fresh Mornin' Sampler </originalname>
+        <originalName> Fresh Mornin' Sampler </originalName>
         <oldName> Mornin' Sampler </oldName>
       </itemName>
       <description>
@@ -61,7 +64,7 @@
     <category>Lite and Quick</category>
     <menuItem>
       <itemName>
-        <name> Oatmeal Breakfast </originalName>
+        <originalName> Oatmeal Breakfast </originalName>
       </itemName>
       <description>
         <![CDATA[
@@ -124,7 +127,7 @@ All the comments(epilog) is not processed
     <!ELEMENT menu (category, menuItem+)>
     <!ELEMENT category (#PCDATA)>
     <!ELEMENT menuItem (itemName, description, price, indicator*)>
-    <!ELEMENT itemName (originalName, *oldName)>
+    <!ELEMENT itemName (originalName, oldName*)>
     <!ELEMENT description (#PCDATA)>
     <!ELEMENT price (#PCDATA)>
     <!ELEMENT indicator (#PCDATA)>
@@ -133,9 +136,14 @@ All the comments(epilog) is not processed
 ]>
 
 6. Verify that file is well-formed and valid.
+Verified through https://www.xmlvalidation.com/ , no errors found.
 
+![image info](Screenshot1.png)
+![image info](Screenshot2.png)
 
 7. Create `style.css` file and link it to the file. Add the following styles to the .css:
 - Change font-size of `originalName`
 - Display each `category` on the new line
 - Add any other css-rule
+
+![image info](Screenshot3.png)

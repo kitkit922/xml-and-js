@@ -1,6 +1,18 @@
+title{
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    color:blueviolet;
+    background-color: aqua;
+    display:block;
+}
+
 originalName{
-    font-size: 10px;
+    font-size: 18px;
     font-style: italic;
+    background-color: lightcoral;
+    display:block;
+
 }
 
 category{
@@ -8,7 +20,7 @@ category{
     font-size: 20px;
     font-style: italic;
     font-weight: 600;
-    
-    white-space: pre;
+    background-color: goldenrod;
+    display:block;
 }
 
