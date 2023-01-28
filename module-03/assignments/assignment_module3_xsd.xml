@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="catalog" type="catalogType"/>
+
+    <xs:complexType name="catalogType">
+        <xs:sequence>
+            <xs:element name="product" type="productType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="productsType">
+        <xs:sequence>
+            <xs:element name="catalog_item" type="catalog_itemType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="product_id"/>
+        <xs:attribute type="xs:string" name="description"/>
+        <xs:attribute type="xs:string" name="description"/> 
+    </xs:complexType>
+
+    <xs:complexType name="catalog_itemType">
+        <xs:sequence>
+            <xs:element name="item_number" type="xs:string"/>
+            <xs:element name="price" type="xs:decimal"/>
+            <xs:element name="size" type="sizeType" maxOccurs="unbounded"/> 
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="gender"/>
+    </xs:complexType>
+
+    <xs:complexType name="sizeType">
+        <xs:sequence>
+            <xs:element name="color_swatch" type="xs:string" maxOccurs="unbounded"/>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="id" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType> 
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="description"/>
+    </xs:complexType>
+
+</xs:schema>
+
