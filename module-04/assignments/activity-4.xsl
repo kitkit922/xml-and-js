@@ -3,34 +3,46 @@
   <xsl:template match="/">
     <html>
       <body>
+      <h1>Table 1</h1>
         <table border="1">
           <tr>
-            <th>sku</th>
-            <th>createdAt</th>
-            <th>shippable</th>
             <th>productName</th>
-            <th>manufacturer</th>
+            <th>manufacturer id</th>
             <th>description</th>
-            <th>prices</th>
-            <th>productItems</th>   
+            <th>USD price</th>
           </tr>
-
-
           <xsl:for-each select = "products/product">
-            <xsl:if test="shippable = True">
+            <xsl:if test="@shippable='true'">
                 <tr>
-                    <td><xsl:value-of select="@sku" /></td>
-                    <td><xsl:value-of select="@createdAt" /></td>
-                    <td><xsl:value-of select="@shippable" /></td>
                     <td><xsl:value-of select="productName" /></td>
-                    <td><xsl:value-of select="manufacturer" /></td>
+                    <td><xsl:value-of select="manufacturer/@id" /></td>
                     <td><xsl:value-of select="description" /></td>
-                    <td><xsl:value-of select="prices" /></td>
-                    <td><xsl:value-of select="productItems" /></td>
+                    <td><xsl:value-of select="prices/price[1]" /></td>
                 </tr>
             </xsl:if>
           </xsl:for-each>
         </table>
+
+        <h1>Table 2</h1>
+        <table border="1">
+          <tr>
+            <th>productName</th>
+            <th>description</th>
+            <th>USD price</th>
+            <th>EURO price</th>
+          </tr>
+          <xsl:for-each select = "products/product">
+            <xsl:if test="manufacturer/@id='acme'">
+                <tr>
+                    <td><xsl:value-of select="productName" /></td>
+                    <td><xsl:value-of select="description" /></td>
+                    <td><xsl:value-of select="prices/price[1]" /></td>
+                    <td><xsl:value-of select="(prices/price)[last()]" /></td>
+                </tr>
+            </xsl:if>
+          </xsl:for-each>
+        </table>
+
       </body>
     </html>
   </xsl:template>
