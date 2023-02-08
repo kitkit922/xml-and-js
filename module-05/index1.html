@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+  </head>
+  <body>
+    <ol id="students"></ol>
+    <p id="text"></p>
+    <script>
+      /*
+      need to call new XMLHttpRequest();
+      */
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        /*
+        this. = local Variable
+        */
+        if (this.readyState == 4 && this.status == 200) {
+          displayData(this.responseXML);
+        }
+      };
+
+      xhttp.open("GET", "students.xml", true);
+      xhttp.send();
+
+      const diaplayData = (xmlDoc) => {
+        document.getElementById("text").innerHTML = 
+          xmlDoc.getElementsByTagName("name")[0].childnodes[0].nodevalue;
+      }
+
+      function stringToNode(html) {
+        const template = document.createElement(`template`);
+        html = html.trim();
+        template.innerHTML = html;
+        return template.content.firstChild;
+      }
+
+
+      /*
+      Choose any data want to display
+      */
+
+      function displayData(xmlDoc) {
+
+        const listElement = document.getElementById(`students`);
+
+        const xmlDoc = xml.responseXML;
+
+        const studentNodes = xmlDoc.getElementsByTagName("student");
+
+        for (let index = 0; index < studentNodes.length; index++) {
+          const student = studentNodes[index];
+
+          const listItem = document.createElement(`li`);
+
+          const title = document.createElement(`h2`);
+          title.appendChild(
+            document.createTextNode(
+              student.getElementsByTagName("firstname")[0].childNodes[0]
+                .nodeValue +
+                ` ` +
+                student.getElementsByTagName("lastname")[0].childNodes[0]
+                  .nodeValue
+            )
+          );
+          listItem.appendChild(title);
+
+          const subtitle = document.createElement(`p`);
+          subtitle.appendChild(
+            document.createTextNode(
+              student.getAttribute(`rollno`) +
+                ` - ` +
+                student.getElementsByTagName("nickname")[0].childNodes[0]
+                  .nodeValue
+            )
+          );
+          listItem.appendChild(subtitle);
+
+          const grade = document.createElement(`p`);
+          grade.appendChild(
+            document.createTextNode(
+              `Grade: ` +
+                student.getElementsByTagName("marks")[0].childNodes[0].nodeValue
+            )
+          );
+          listItem.appendChild(grade);
+
+          listElement.appendChild(listItem);
+        }
+
+
+          
+          
+          /*
+          (`<li>
+            <h2>${
+              studentNode.getElementsByTagName("firstname")[0].childNodes[0]
+                .nodeValue
+            } ${
+            studentNode.getElementsByTagName("lastname")[0].childNodes[0]
+              .nodeValue
+          }</h2>
+          <p>${studentNode.getAttribute("rollno")} - ${
+            studentNode.getElementsByTagName("nickname")[0].childNodes[0]
+              .nodeValue
+          }</p>
+          <p>${`Grade: ${
+            studentNode.getElementsByTagName(`marks`)[0].childNodes[0].nodeValue
+          }`}</p>
+          </li>`);
+          listElement.appendChild(listItem);
+          */
+
+        
+      }
+    </script>
+  </body>
+</html>
