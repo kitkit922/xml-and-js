@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <ol id="book"></ol>
+    <script>
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          displayData(this.responseXML);
+        }
+      };
+      xhttp.open("GET", "quiz1_xml.xml", true);
+      xhttp.send();
+
+      function stringToNode(html) {
+        const template = document.createElement(`template`);
+        html = html.trim();
+        template.innerHTML = html;
+        return template.content.firstChild;
+      }
+
+      function createBook(book) {
+        const content = `<li>
+  <article>
+    <p>${book.title}</p>
+    <p>${book.authors}</p>
+    <p>${book.year}</p>
+    <p>${book.price}</p>
+    <p>${book.category}</p>
+  </article>
+</li>`;
+
+        return stringToNode(content);
+      }
+
+      function parseBook(xml) {
+        const title =
+          xml.getElementsByTagName(`title`)[0].childNodes[0].nodeValue;
+        const year =
+          xml.getElementsByTagName(`year`)[0].childNodes[0].nodeValue;
+        const price =
+          xml.getElementsByTagName(`price`)[0].childNodes[0].nodeValue;
+        const category =
+          xml.getElementsByTagName(`category`)[0].childNodes[0].nodeValue;
+
+        const authorElements = xml.getElementsByTagName(`author`);
+        const authors = [];
+          for (let i = 0; i < authorElements.length; i++) {
+            authors.push(authorElements[i].childNodes[0].nodeValue);
+          }
+
+        return {
+          title,
+          year,
+          price,
+          category,
+          authors
+        };
+      }
+
+      function displayData(xmlDoc) {
+        const cards = xmlDoc.getElementsByTagName(`row`);
+        const list = document.getElementById(`cards`);
+
+        for (let index = 0; index < cards.length; index++) {
+          const element = cards[index];
+          const parsedBook = parseBook(element);
+
+          const bookElement = createBook(parsedBook);
+          list.appendChild(bookElement);
+        }
+      }
+    </script>
+  </body>
+</html>
