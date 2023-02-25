@@ -7,6 +7,10 @@ const argFunc = () => {
   console.log("I'm being invoked by the higher-order function!");
 };
 
+hof (()=> {   // Anoyneous function
+  console.log(`I'm arg`)
+});
+
 console.log(hof(argFunc));
 
 console.log(

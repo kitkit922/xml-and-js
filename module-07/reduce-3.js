@@ -33,7 +33,7 @@ const { rebels, empire } = pilots.reduce(
       type = `rebels`;
     }
 
-    if (acc[type] && acc[type].length > 0) {
+    if (acc[type] && acc[type].length > 0) {  //dynamic type
       acc[type] = acc[type] + ", " + item.name;
     } else {
       acc[type] = item.name;
@@ -44,6 +44,6 @@ const { rebels, empire } = pilots.reduce(
   { rebels: "", empire: "" }
 );
 
-const names = rebels.map((item) => item.name).join(", ");
+const names = rebels.map((item) => item.name).join(", ");  // Change to String 
 
 console.log(rebels, empire);

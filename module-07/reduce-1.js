@@ -25,6 +25,10 @@ console.log("Source:");
 console.log(pilots);
 
 const totalYears = pilots.reduce((accum, pilot) => {
+  console.log(accum);
+  console.log(pilot.years);
+  console.log(accum + pilot.years);
+  console.log('-------------');
   return accum + pilot.years;
 }, 0);
 
