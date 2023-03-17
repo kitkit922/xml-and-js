@@ -55,3 +55,12 @@ checkIfExists(filename)
   .then(() => readFile(filename))
   .then((data) => console.log(data))
   .catch((error) => console.error(error))
+
+const main = () => {
+  checkIfExists (filename);
+  checkIfFile (fileName);
+  const data = readFile(filename);
+  console.log(data);
+}
+
+main();

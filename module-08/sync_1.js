@@ -1,19 +1,21 @@
-const timeout = (ms) => 
+const timeout = (ms = 1500) => 
   new Promise((resolve) => setTimeout(resolve, ms));
 
 
-function inc(a) {
-  await timeout();
+async function inc(a) {
+  return timeout().then(() => a+1);
   return a + 1;
 }
 
-const sum = function (a, b) {
+const sum = async function (a, b) {
+  await timeout();
   return a + b;
 };
 
 const max = (a, b) => (a > b ? a : b);
 
-const avg = (a, b) => {
+const avg = async (a, b) => {
+  await timeout();
   const s = sum(a, b);
   return s / 2;
 };
