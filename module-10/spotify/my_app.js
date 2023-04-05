@@ -1,7 +1,7 @@
 const clientId = `eff0753e18e14898b43ebfe6646c1b7a`;
 const clientSecret = `7a0eed57bab94293b0ee4d8051b04b06`;
 
-const getToken = async () => {
+const getToken = async () => {  // Get the token from spotify
   const result = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -15,7 +15,7 @@ const getToken = async () => {
   return data.access_token;
 };
 
-const getGenres = async (token) => {
+const getGenres = async (token) => {  //use token get info
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories?locale=sv_US`,
     {
@@ -28,53 +28,55 @@ const getGenres = async (token) => {
   return data.categories.items;
 };
 
-const getPlaylistByGenre = async (token, genreId) => {
-  const limit = 10;
-
-  const result = await fetch(
-    `https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`,
-    {
-      method: "GET",
-      headers: { Authorization: "Bearer " + token },
-    }
-  );
-
-  const data = await result.json();
-  return data.playlists.items;
+const getPlaylistByGenre = async (token, category_id) => {
+    const limit = 10;
+    const result = await fetch(
+      `https://api.spotify.com/v1/browse/categories/${category_id}/playlists?limit=${limit}`,
+      {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+  
+    const data = await result.json();
+    return data.playlists.items;
 };
+
+
+
 
 const loadGenres = async () => {
-  const token = await getToken();
-  const genres = await getGenres(token);
-  const list = document.getElementById(`genres`);
-  genres.map(async ({ name, id, icons: [icon], href }) => {
+    const token = await getToken();
+    const genres = await getGenres(token);
+    const list = document.getElementById(`genres`);
+    genres.map(async ({ name, id, icons: [icon], href }) => {
     const playlists = await getPlaylistByGenre(token, id);
     const playlistsList = playlists
-      .map(
+    .map(
         ({ name, external_urls: { spotify }, images: [image] }) => `
         <li>
-          <a href="${spotify}" alt="${name}" target="_blank">
+        <a href="${spotify}" alt="${name}" target="_blank">
             <img src="${image.url}" width="180" height="180"/>
-          </a>
-        </li>`
-      )
-      .join(``);
+        </a>
+        </li>` // .toString()
+        )
+        .join(``);
 
     if (playlists) {
-      const html = `
-      <article class="genre-card">
+    const html = `
+    <article class="genre-card">
         <img src="${icon.url}" width="${icon.width}" height="${icon.height}" alt="${name}"/>
         <div>
-          <h2>${name}</h2>
-          <ol>
+        <h2>${name}</h2>
+        <ol>
             ${playlistsList}
-          </ol>
+        </ol>
         </div>
-      </article>`;
+    </article>`;
 
-      list.insertAdjacentHTML("beforeend", html);
+    list.insertAdjacentHTML("beforeend", html);
     }
-  });
-};
+    });
+  };
 
 loadGenres();

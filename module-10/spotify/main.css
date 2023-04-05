@@ -6,9 +6,9 @@
   color: white;
 }
 
-.genre-card:not(:last-child) {
+/* .genre-card:not(:last-child) {
   margin-bottom: 15px;
-}
+} */
 
 .genre-card > div {
   padding: 10px 20px;
