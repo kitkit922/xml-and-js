@@ -32,7 +32,6 @@ const getGenres = async (token) => {
 
 const getPlaylistByGenre = async (token, genreId) => {
   const limit = 10;
-
   const result = await fetch(
     `https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`,
     {
@@ -42,12 +41,51 @@ const getPlaylistByGenre = async (token, genreId) => {
   );
 
   const data = await result.json();
-  return data.playlists ? data.playlists.items : [];
+  return data.playlists.items;
 };
+
+const getTracksToPlaylist = async (token, playlistId, tracks) => {
+  const result = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, 
+    {
+      method: "GET",
+      headers: {Authorization: "Bearer " + token},
+    }
+  );
+
+  const data = await result.json();
+  return data.items.map(({track}) => ({
+    name: track.name,
+    artists: track.artists.map(artist => artist.name),
+  }))
+  .slice(0, 3);
+};
+
+const displayTracks = async (token, playlists) => {
+  const tracksList = [];
+  for (const { name, id: playlistId } of playlists) {
+    const tracks = await getTracksToPlaylist(token, playlistId);
+    tracksList.push(`
+      <h2><u>${name}</u></h2>
+      <ul>
+        ${tracks
+          .map(
+            ({ name, artists }) => `
+            <li>
+              ${name} - ${artists}
+            </li>
+            `)
+          .join('')}
+      </ul>
+    `);playlists
+  }
+  return tracksList.join('');
+}
 
 const loadGenres = async () => {
   const token = await getToken();   // async function, need to save to a promise 
   const genres = await getGenres(token);
+  const list = document.getElementById(`genres`);
 
   _data = await Promise.all(   // after map and save to local
     genres.map(async (genre) => {
@@ -58,8 +96,8 @@ const loadGenres = async () => {
   );
 };
 
-const renderGenres = (filterTerm) => {
-  let source = _data;  //locak data
+const renderGenres = async (filterTerm) => {
+  let source = _data;  // local data
 
   if (filterTerm) {
     console.log(filterTerm);
@@ -72,8 +110,11 @@ const renderGenres = (filterTerm) => {
 
   const list = document.getElementById(`genres`);
 
-  const html = source.reduce((acc, { name, icons: [icon], playlists }) => {
-    const playlistsList = playlists   //render figure
+  const html = await source.reduce(async (_acc, { id, name, icons: [icon], playlists }) => {
+    const acc = await _acc;
+    const token = await getToken();
+    const genrePlaylists = await getPlaylistByGenre(token, id);
+    const playlistList = genrePlaylists   // render figure
       .map(
         ({ name, external_urls: { spotify }, images: [image] }) => `
         <li>
@@ -84,25 +125,50 @@ const renderGenres = (filterTerm) => {
       )
       .join(``);
 
-    if (playlists) {    //render html design
+    const tracksList = await displayTracks(token, genrePlaylists);
+
+    if (playlists) {    // render html design
       return (
         acc +
+        `<article class="genre">
+          <table>
+            <tr>
+              <td style="vertical-align: top;">
+                <h3>${name}</h3>
+              </td>
+              <td>
+                <img src="${icon.url}" width="160" height="160" alt="${name}" style="margin-left: 40px;"/>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <h3>Most recent Top 10 </h3>
+              </td>
+              <td>
+                <ol>
+                  ${playlistList}
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <h3>Track names and artists</h3>
+              </td>
+              <td>
+              <div style="margin-left: 40px;">
+                ${tracksList}
+              </div>
+              </td>
+            </tr>
+          </table>
+        </article>
         `
-      <article class="genre-card">
-        <img src="${icon.url}" width="${icon.width}" height="${icon.height}" alt="${name}"/>
-        <div>
-          <h2>${name}</h2>
-          <ol>
-            ${playlistsList}
-          </ol>
-        </div>
-      </article>`
       );
     }
-  }, ``);
-
+  }, Promise.resolve(''));
   list.innerHTML = html;
 };
+
 
 loadGenres().then(renderGenres);    // 2 part functions, filter want to render another dataset, split
 
