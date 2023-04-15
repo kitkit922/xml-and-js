@@ -19,7 +19,7 @@ const renderTable = (data) => {
   // window.location
 
 
-  
+
   const rows = source.reduce(
     (acc, { id, name, value }) =>  // Use reduce to join html strings together
       acc +
@@ -42,3 +42,6 @@ fetch(`./data.json`)
 const onReset = () => {
   window.location.replace(window.location.pathname);
 };
+
+
+// disadvantage, always reload the data, I have requested already before

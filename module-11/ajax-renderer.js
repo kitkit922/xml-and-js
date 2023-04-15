@@ -1,10 +1,11 @@
-let _data = [];
+let _data = [];  //local data variables
 
 const renderTable = (nameTerm) => {
   const tableBody = document.getElementById("table-body");
 
-  let source = _data;
+  let source = _data;  //local data variables
 
+  // filter results
   if (nameTerm) {
     source = source.filter(({ name }) => name.toLowerCase().includes(nameTerm));
   }
@@ -30,7 +31,7 @@ fetch(`./data.json`)  // fetch data
   });
 
 const onSubmit = (event) => {
-  event.preventDefault();
+  event.preventDefault();  // prevent default, not update DML, not re-access
 
   const term = event.target.name.value;
 
