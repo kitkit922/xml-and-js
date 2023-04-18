@@ -5,18 +5,26 @@ let _data = [];
 window.choose = ""; 
 
 const getToken = async () => {
-  const result = await fetch("https://accounts.spotify.com/api/token", {
+  const result = await fetch("https://accounts.spotify.com/api/token", {    // curl -X
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded",    // curl -H
       Authorization: "Basic " + btoa(clientId + ":" + clientSecret),
     },
-    body: "grant_type=client_credentials",
+    body: "grant_type=client_credentials",    // curl -d
   });
 
-  const data = await result.json();
+  const data = await result.json();    // data is the json response
   return data.access_token;
 };
+
+// Response: (data)
+// {
+//   "access_token": "BQDBKJ5eo5jxbtpWjVOj7ryS84khybFpP_lTqzV7uV-T_m0cTfwvdn5BnBSKPxKgEb11",
+//   "token_type": "Bearer",
+//   "expires_in": 3600
+// }
+
 
 const getGenres = async (token) => {
   const result = await fetch(
@@ -86,7 +94,7 @@ const displayTracks = async (token, playlists) => {
 const loadGenres = async () => {
   const token = await getToken();   // async function, need to save to a promise 
   const genres = await getGenres(token);
-  const list = document.getElementById(`genres`);
+  const list = document.getElementById(`genres`);    // load document(html) and get div='genres'
 
   _data = await Promise.all(   // after map and save to local
     genres.map(async (genre) => {
@@ -194,7 +202,7 @@ const renderGenres = async (filterTerm) => {
               </td>
               <td>
               <div style="margin-left: 40px;">
-                ${tracksList}
+                ${tracksList}nameTerm
               </div>
               </td>
             </tr>

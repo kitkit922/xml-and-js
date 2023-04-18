@@ -1,0 +1,59 @@
+
+<!-- Tsz Kit Cheung N01555831 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify API</title>
+    <link rel="stylesheet" type="text/css" href="kevin_project_2_css.css" />
+  </head>
+  <body>
+    <h1>Carbon Calculator For Transport</h1>
+    <form id="flightForm" onsubmit="processFlight(event)">
+        <label class="title">Flight</label><br>
+        <label for="people">People:</label>
+        <input type="number" id="people" name="people"><br>
+        <label for="leg1">Leg:</label>
+        <input type="number" id="leg1" name="leg1"><br>
+        <label for="des1">Destination 1:</label>
+        <input type="text" id="des1" name="des1"><br>
+        <label for="des2">Destination 2:</label>
+        <input type="text" id="des2" name="des2"><br>
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    <form id="generalForm" onsubmit="processGenral(event)">
+        <label class="title">General (ship, train, truck and plane)</label><br>
+        <label for="weight">Weight: (kg)</label>
+        <input type="number" id="weight" name="weight"><br>
+        <label for="distance">Distance: (km)</label>
+        <input type="number" id="distance" name="distance"><br>
+        <label for="leg2">Leg:</label>
+        <input type="number" id="leg2" name="leg2"><br>
+        <label for="tw">Transportation way: (ship, train, truck and plane)</label>
+        <input type="text" id="tw" name="tw"><br>
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    <form id="vehicleForm" onsubmit="processVehicle(event)">
+        <label class="title">Vehicle</label><br>
+        <label for="distance2">Distance: (km)</label>
+        <input type="number" id="distance2" name="distance2"><br>
+        <label for="leg3">Leg:</label>
+        <input type="number" id="leg3" name="leg3"><br>
+        <label for="vm">Vehicle manufacturer:</label>
+        <input type="text" id="vm" name="vm"><br>
+        <label for="vn">Vehicle name:</label>
+        <input type="text" id="vn" name="vn"><br>
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year"><br>
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    <br>
+    <h2 class="title">Results:</h2>
+    <div id="dataSet"></div>
+    <script src="kevin_project_2_json.js" type="text/javascript"></script>
+  </body>
+</html>

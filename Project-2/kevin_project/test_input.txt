@@ -1,0 +1,19 @@
+Test input:
+Flight:
+people: 1
+Leg: 1
+Destination 1: yyz
+Destination 2: yyc
+
+General:
+weight: 100
+Distance: 100
+Leg: 1
+Transportation way: ship
+
+Vehicle:
+Distance: 100
+Leg: 1
+Vehicle Manufacturer: toyota
+Vehicle name: corolla
+year: 1993

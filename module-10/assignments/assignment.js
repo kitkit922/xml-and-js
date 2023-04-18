@@ -2,7 +2,7 @@ const clientId = `eff0753e18e14898b43ebfe6646c1b7a`;
 const clientSecret = `7a0eed57bab94293b0ee4d8051b04b06`;
 
 const getToken = async () => {  //create token
-  const result = await fetch("https://accounts.spotify.com/api/token", {
+  const result = await fetch("https://accounts.spotify.com/api/token", {  // -curl X
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10,7 +10,7 @@ const getToken = async () => {  //create token
     },
     body: "grant_type=client_credentials",
   });
-
+  
   const data = await result.json();
   return data.access_token;
 };
